@@ -2,10 +2,10 @@
 
 /** @type Egg.EggPlugin */
 module.exports = {
-  // had enabled by egg
-  // static: {
-  //   enable: true,
-  // }
+    // had enabled by egg
+    // static: {
+    //   enable: true,
+    // }
     ejs: {
         enable: true,
         package: 'egg-view-ejs'
@@ -17,5 +17,9 @@ module.exports = {
     jwt: {
         enable: true,
         package: 'egg-jwt'
+    },
+    core: {
+        enable: true,
+        package: 'egg-cors',
     }
 };

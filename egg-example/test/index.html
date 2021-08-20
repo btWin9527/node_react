@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片上传</title>
+</head>
+<body>
+<input type="file" id="upload">
+<script>
+    const input = document.getElementById('upload');
+    input.addEventListener('change', function (e) {
+        // 获取上传的file对象
+        var file = input.files[0];
+        // 声明FormData实力
+        let formData = new FormData();
+        formData.append('file', file);
+        console.log('formData', formData)
+        // 调用服务端上传接口
+        fetch('http://localhost:7001/api/upload', {
+            method: 'POST',
+            body: formData
+        }).then((res) => {
+            if (res.ok) {
+                console.log('success')
+                return res.json();
+            } else {
+                console.log('error')
+            }
+        }).then((res) => {
+            console.log('res is', res)
+        })
+    })
+</script>
+</body>
+</html>

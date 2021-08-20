@@ -8,10 +8,13 @@
   },
   "dependencies": {
     "egg": "^2.15.1",
+    "egg-cors": "^2.2.3",
     "egg-jwt": "^3.1.7",
     "egg-mysql": "^3.0.0",
     "egg-scripts": "^2.11.0",
-    "egg-view-ejs": "^2.0.1"
+    "egg-view-ejs": "^2.0.1",
+    "mkdirp": "^1.0.4",
+    "moment": "^2.29.1"
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -20,8 +23,7 @@
     "egg-ci": "^1.11.0",
     "egg-mock": "^3.21.0",
     "eslint": "^5.13.0",
-    "eslint-config-egg": "^7.1.0",
-    "eslint-config-prettier": "^8.3.0"
+    "eslint-config-egg": "^7.1.0"
   },
   "engines": {
     "node": ">=10.0.0"
