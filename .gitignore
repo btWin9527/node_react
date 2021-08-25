@@ -2,7 +2,6 @@ egg-example/logs/
 npm-debug.log
 yarn-error.log
 node_modules/
-package-lock.json
 yarn.lock
 coverage/
 .idea/
