@@ -2,12 +2,12 @@ import axios from 'axios'
 import {Toast} from 'zarm'
 
 const MODE = import.meta.env.MODE // 环境变量
-
-axios.default.baseURL = MODE === 'development' ? '/api' : 'http://127.0.0.1/7001'
-axios.default.withCredentials = true
-axios.default.headers['X-Requested-With'] = 'XMLHttpRequest'
-axios.default.headers['Authorization'] = `${localStorage.getItem('token') || null}`
-axios.default.headers.post['Content-Type'] = 'application/json'
+console.log(MODE,'MODE')
+axios.defaults.baseURL = MODE === 'development' ? '/api' : 'http://127.0.0.1:7001'
+axios.defaults.withCredentials = true
+axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
+axios.defaults.headers['Authorization'] = `${localStorage.getItem('token') || null}`
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 // 拦截设置
 axios.interceptors.response.use(res => {

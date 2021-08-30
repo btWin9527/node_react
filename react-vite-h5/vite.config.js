@@ -30,11 +30,14 @@ export default defineConfig({
         }
     },
     server: {
+        host: 'localhost',
+        open: true,
+        cors: true, // 允许跨域
         proxy: {
             '/api': {
-                target: 'http://127.0.0.1/7001/api',
+                target: 'http://127.0.0.1:7001',
                 changeOrigin: true,
-                rewrite: path => path.replace(/^\/api/, '') // 重写api为空
+                rewrite: path => path.replace(/^\/api/, '') // 将 /api 重写为空
             }
         }
     },
