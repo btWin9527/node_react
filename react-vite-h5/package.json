@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "dayjs": "^1.10.6",
     "lib-flexible": "^0.3.2",
     "postcss-pxtorem": "^6.0.0",
     "react": "^17.0.0",
