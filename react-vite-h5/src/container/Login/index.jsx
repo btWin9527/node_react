@@ -2,6 +2,7 @@ import React, {useState, useCallback} from 'react';
 import {Cell, Input, Button, Checkbox, Toast} from 'zarm';
 import Captcha from 'react-captcha-code';
 import cx from 'classnames';
+import {useHistory} from 'react-router-dom';
 
 import {post} from "@/utils";
 import CustomIcon from '@/components/CustomIcon';
@@ -14,6 +15,7 @@ const Login = () => {
     const [verify, setVerify] = useState('');
     const [captcha, setCaptcha] = useState('');
     const [type, setType] = useState('login');
+    const history = useHistory();
 
     // 切换验证码 -- useCallback缓存函数，避免表单修改重新渲染验证码组件
     const handleChange = useCallback((captcha) => {
@@ -29,6 +31,7 @@ const Login = () => {
             // 将 token 写入 localStorage
             localStorage.setItem('token', data.token);
             Toast.show('登录成功');
+            history.push('/index');
 
         } catch (e) {
             Toast.show('系统错误');

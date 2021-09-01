@@ -63,7 +63,7 @@ const BillItem = ({bill}) => {
                     }
                     description={<span
                         style={{color: item.pay_type === 2 ? 'red' : '#39be77'}}>{`${item.pay_type === 1 ? '-' : '+'}${item.amount}`}</span>}
-                    help={<div>{dayjs(Number(item.date)).format('HH:mm')} {item.remark ? `| ${item.remark}` : ''}</div>}
+                    help={<div>{dayjs(Number(item.date*1000)).format('HH:mm')} {item.remark ? `| ${item.remark}` : ''}</div>}
                 >
                 </Cell>)
             }

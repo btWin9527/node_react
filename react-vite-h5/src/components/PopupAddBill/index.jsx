@@ -8,7 +8,7 @@ import PopupDate from "../PopupDate";
 import s from './style.module.less';
 import {get, typeMap, post} from "@/utils";
 
-const PopupAddBill = forwardRef((props, ref) => {
+const PopupAddBill = forwardRef(({detail, onReload}, ref) => {
     const [show, setShow] = useState(false); // 内部控制弹窗显示隐藏
     const [payType, setPayType] = useState('expense'); // 支付类型
     const [date, setDate] = useState(new Date()); // 日期
@@ -19,6 +19,20 @@ const PopupAddBill = forwardRef((props, ref) => {
     const [remark, setRemark] = useState(''); // 备注信息
     const [showRemark, setShowRemark] = useState(false); // 显示备注信息
     const dateRef = useRef(); // 时间组件ref
+    const id = detail && detail.id; // 详情id
+
+    useEffect(() => {
+        if (detail && detail.id) {
+            setPayType(detail.pay_type === 1 ? 'expense' : 'income');
+            setCurrentType({
+                id: detail.type_id,
+                name: detail.type_name
+            });
+            setRemark(detail.remark);
+            setAmount(detail.amount);
+            setDate(dayjs(Number(detail.date) * 1000).$d);
+        }
+    }, [detail]);
 
     useEffect(async () => {
         const {data: {list}} = await get('/api/type/list');
@@ -26,7 +40,9 @@ const PopupAddBill = forwardRef((props, ref) => {
         const _income = list.filter(i => i.type === 2);
         setExpense(_expense);
         setIncome(_income);
-        setCurrentType(_expense[0]);
+        if (!id) {
+            setCurrentType(_expense[0]);
+        }
     }, []);
 
     if (ref) {
@@ -64,17 +80,26 @@ const PopupAddBill = forwardRef((props, ref) => {
             pay_type: payType === 'expense' ? 1 : 2, // 账单类型
             remark: remark || '' // 备注
         }
-        const result = await post('/api/bill/add', params);
-        // 重置数据
-        setAmount('');
-        setRemark('');
-        setPayType('expense');
-        setCurrentType(expense[0]);
-        setDate(new Date());
-        Toast.show('添加成功');
+        // 修改
+        if (id) {
+            params.id = id;
+            const result = await post('/api/bill/update', params);
+            Toast.show('修改成功');
+        }
+        // 新增
+        else {
+            const result = await post('/api/bill/add', params);
+            // 重置数据
+            setAmount('');
+            setRemark('');
+            setPayType('expense');
+            setCurrentType(expense[0]);
+            setDate(new Date());
+            Toast.show('添加成功');
+        }
         setShow(false);
         // onReload 方法为首页账单列表传进来的函数，当添加完账单的时候，执行 onReload 重新获取首页列表数据
-        if (props.onReload) props.onReload();
+        if (onReload) onReload();
     }
 
     // 监听输入框变化
