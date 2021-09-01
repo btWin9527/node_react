@@ -99,9 +99,10 @@ class BillController extends Controller {
             const filterListMap = listMap.slice((page - 1) * page_size, page * page_size);
             // 计算当月总收入和支持
             let __list = list.filter(item => moment(Number(item.date) * 1000).format('YYYY-MM') === date);
+
             // 累加计算支出
             let totalExpense = __list.reduce((curr, item) => {
-                if (item.pay__type === 1) {
+                if (item.pay_type === 1) {
                     curr += Number(item.amount);
                 }
                 return curr;

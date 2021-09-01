@@ -6,6 +6,8 @@ import s from './style.module.less';
 import BillItem from "@/components/BillItem";
 import PopupType from "@/components/PopupType";
 import PopupDate from "@/components/PopupDate";
+import PopupAddBill from "@/components/PopupAddBill";
+import CustomIcon from '@/components/CustomIcon'
 import {get, REFRESH_STATE, LOAD_STATE} from '@/utils'; // Pull 组件需要的一些常量
 
 const Home = () => {
@@ -19,6 +21,7 @@ const Home = () => {
     const [loading, setLoading] = useState(LOAD_STATE.normal); // 上拉加载状态
     const typeRef = useRef(); // 账单类型ref
     const monthRef = useRef(); // 月份筛选ref
+    const addRef = useRef(); // 添加账单ref
     const [currentSelect, setCurrentSelect] = useState({}); // 当前筛选类型
 
     useEffect(() => {
@@ -85,6 +88,11 @@ const Home = () => {
         setCurrentTime(item);
     }
 
+    // 添加账单
+    const addToggle = () => {
+        addRef.current && addRef.current.show()
+    }
+
     return <div className={s.home}>
         <div className={s.header}>
             <div className={s.dataWrap}>
@@ -127,6 +135,8 @@ const Home = () => {
         </div>
         <PopupType ref={typeRef} onSelect={select}/>
         <PopupDate ref={monthRef} mode="month" onSelect={selectMonth}/>
+        <div className={s.add} onClick={addToggle}><CustomIcon type="tianjia"/></div>
+        <PopupAddBill ref={addRef} onReload={refreshData}/>
     </div>
 }
 
