@@ -31,7 +31,7 @@ const Login = () => {
             // 将 token 写入 localStorage
             localStorage.setItem('token', data.token);
             Toast.show('登录成功');
-            history.push('/index');
+            history.push('/');
 
         } catch (e) {
             Toast.show('系统错误');

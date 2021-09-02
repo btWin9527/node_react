@@ -1,13 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {TabBar} from "zarm";
-import {useHistory} from "react-router-dom";
+import {useHistory,useLocation} from "react-router-dom";
 import s from "./style.module.less";
 import CustomIcon from '../CustomIcon'
 
 const NavBar = ({showNav}) => {
     const [activeKey, setActiveKey] = useState('/');
     const history = useHistory();
+    const location = useLocation(); // 拿到location实例
+    const {pathname} = location; // 获取当前路径
+
+    useEffect(() => {
+        setActiveKey(pathname);
+    },[pathname]);
 
     const changeTab = (path) => {
         setActiveKey(path);

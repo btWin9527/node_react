@@ -4,6 +4,7 @@ import User from "../container/User";
 import Login from "../container/Login";
 import Detail from "../container/Detail";
 import UserInfo from "../container/UserInfo";
+import Account from "../container/Account";
 
 const routes = [
     {
@@ -29,6 +30,10 @@ const routes = [
     {
         path: '/userinfo',
         component: UserInfo
+    },
+    {
+        path: '/account',
+        component: Account
     }
 
 ];
