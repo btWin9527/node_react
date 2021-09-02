@@ -1,7 +1,19 @@
 import axios from './axios';
+import {baseUrl} from "config";
+
+const MODE = import.meta.env.MODE;
 
 export const get = axios.get;
 export const post = axios.post;
+
+export const imgUrlTrans = (url) => {
+    if (url && url.startsWith('http')) {
+        return url
+    } else {
+        url = `${MODE === 'development' ? 'http://localhost:7001' : baseUrl}${url}`
+        return url
+    }
+}
 
 export const typeMap = {
     1: {
@@ -71,3 +83,4 @@ export const LOAD_STATE = {
     failure: 4, // 加载失败
     complete: 5, // 加载完成（无新数据）
 };
+
